@@ -16,6 +16,11 @@ JOB_TYPE_CHOICES = (
    
 )
 
+def image_upload(instance, filename):
+    imagename, extenstion = filename.split(".")
+    return "jobs/%s/%s.%s"%(instance.id, instance.id, extenstion)
+
+
 class Job(models.Model): # Table 
 
 
@@ -27,7 +32,7 @@ class Job(models.Model): # Table
     salary = models.IntegerField(default=0)
     experence = models.IntegerField(default=1)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-
+    image = models.ImageField(upload_to=image_upload)
     def __str__(self):
         return self.title
 
